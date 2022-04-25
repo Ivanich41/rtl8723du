@@ -61,7 +61,7 @@ Remember, this MUST be done whenever you get a new kernel - no exceptions.
 ##### Installation with module signing for SecureBoot
 For all distros:
 ```bash
-git clone git://github.com/lwfinger/rtl8723du.git
+git clone git://github.com/Ivanich41/rtl8723du.git
 cd rtl8723du
 make
 sudo make sign-install
