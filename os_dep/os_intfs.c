@@ -1044,7 +1044,7 @@ static void rtw_hook_if_ops(struct net_device *ndev)
 #else
 	ndev->init = rtw_ndev_init;
 	ndev->uninit = rtw_ndev_uninit;
-	ndev->open = netdev_open;
+	ndev->open = _netdev_open;
 	ndev->stop = netdev_close;
 	ndev->hard_start_xmit = rtw_xmit_entry;
 	ndev->set_mac_address = rtw_net_set_mac_address;
@@ -1146,7 +1146,11 @@ static int rtw_os_ndev_register(struct adapter *adapter, const char *name)
 	u8 rtnl_lock_needed = rtw_rtnl_lock_needed(dvobj);
 
 #ifdef CONFIG_RTW_NAPI
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 1,0)
 	netif_napi_add(ndev, &adapter->napi, rtw_recv_napi_poll, RTL_NAPI_WEIGHT);
+#else
+	netif_napi_add(ndev, &adapter->napi, rtw_recv_napi_poll);
+#endif
 #endif /* CONFIG_RTW_NAPI */
 
 	if (rtw_cfg80211_ndev_res_register(adapter) != _SUCCESS) {

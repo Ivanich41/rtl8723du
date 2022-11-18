@@ -1743,6 +1743,7 @@ static void read_chip_version_8723d(struct adapter * adapt)
 	pHalData = GET_HAL_DATA(adapt);
 
 	value32 = rtw_read32(adapt, REG_SYS_CFG);
+
 	pHalData->version_id.ICType = CHIP_8723D;
 	pHalData->version_id.ChipType = ((value32 & RTL_ID) ? TEST_CHIP : NORMAL_CHIP);
 	pHalData->version_id.RFType = RF_TYPE_1T1R;
